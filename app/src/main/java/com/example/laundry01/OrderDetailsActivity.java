@@ -25,16 +25,13 @@ import java.util.List;
 public class OrderDetailsActivity extends MenuForAllActivity {
 
     private Toolbar toolbar;
-
     private Spinner mSpnrStatus;
-
-    private ArrayAdapter<String> mSpnrStatusAdapter;
-
     private Button mUpdateOrderBtn;
     private Button mPayBtn;
-    private JsonObject mSelectedOrder;
     private TextView msgOrdDetTV;
 
+    private JsonObject mSelectedOrder;
+    private ArrayAdapter<String> mSpnrStatusAdapter;
     RESTApiSimulator mRestAPI;
 
     @Override
