@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         mMsgLoginTV = findViewById(R.id.msgLoginTV);
     }
 
+    // when the user clicks login
     public void loginCick(View view) {
         userName = findViewById(R.id.edtTxtUname);
         password = findViewById(R.id.edtTxtPwd);
