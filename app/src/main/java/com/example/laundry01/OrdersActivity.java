@@ -20,6 +20,8 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// this page will list all orders...
+
 public class OrdersActivity extends MenuForAllActivity {
 
     private Toolbar toolbar;
