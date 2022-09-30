@@ -23,7 +23,7 @@ public class RESTApiSimulator {
     private Boolean dataLoaded = false;
     private int orderIDCount = 1;
 
-    private RESTApiSimulator() {
+    private RESTApiSimulator() { // sample comment
         // a private constructor to support the singleton model
     }
 
