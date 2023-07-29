@@ -3,6 +3,7 @@ import pyteal as pt
 from beaker import Authorize
 from pyteal import Bytes, Concat, Global, Assert
 
+# change to test git
 
 class LatLonState:
     tgt_addr = bk.GlobalStateValue(pt.TealType.bytes)
