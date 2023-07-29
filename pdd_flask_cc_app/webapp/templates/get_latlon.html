@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Set/Update driver dest details
+{% endblock %}
+
+{% block content %}
+
+<form method="POST" action="/get_latlon_sub">
+  <label for="address">Select an address:</label>
+  <select name="address" id="address">
+    {% for option in options %}
+    <option value="{{ option.address }}">{{ option.address }}</option>
+    {% endfor %}
+  </select>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>
+
+{% endblock %}

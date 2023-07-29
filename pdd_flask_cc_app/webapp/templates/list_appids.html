@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+List of missions
+{% endblock %}
+
+{% block content %}
+
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Algo APP ID</th>
+        <th>Mission Executor </th>
+        <th>Status</th>
+        <th>Creation Timestamp</th>
+        <th>Status Update Timestamp</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for mission in mission_data %}
+    <tr>
+        <td><a href="/cc/listappids/mission_details/?appid={{ mission['algo_appid'] }}">{{ mission['algo_appid'] }}</a></td>
+        <td>{{ mission['tgt_addr'] }}</td>
+        <td>{{ mission['status'] }}</td>
+        <td>{{ mission['creation_date'] }}</td>
+        <td>{{ mission['status_upd_date'] }}</td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
+
+{% endblock %}
+
+

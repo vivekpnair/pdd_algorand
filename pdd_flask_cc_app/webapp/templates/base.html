@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href='/static/main.css' />
+
+<head>
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+  <header>
+      <a href="/">Home</a> <br><br>
+  </header>
+  
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  
+  <footer>
+    <!-- Footer content goes here -->
+  </footer>
+</body>
+</html>

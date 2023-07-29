@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Mission Details
+{% endblock %}
+
+{% block content %}
+<body>
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+
+    <script>
+
+        var data =  {{ mission_data | safe }};
+        if (data.length > 0) {
+        var map = L.map('map').setView([0, 0], 2);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        console.log(data[0].latlon);
+
+        var polylinePoints = [];
+        for (var i = 0; i < data.length; i++) {
+            var latlon = data[i].latlon;
+            var [lat, lon] = latlon.split(',');
+            var latlng = L.latLng(parseFloat(lat), parseFloat(lon));
+            polylinePoints.push(latlng);
+
+              // Add a marker for each point in polylinePoints
+            var marker = L.marker(latlng).addTo(map);
+            marker.bindPopup('reached here @ : ' + data[i].loc_timestamp); // You can customize the popup content here
+        }
+
+        var polyline = L.polyline(polylinePoints, {color: 'blue'}).addTo(map);
+        map.fitBounds(polyline.getBounds());
+        }
+    </script>
+</body>
+</html>
+
+{% endblock %}

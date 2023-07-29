@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Set/Update driver dest details
+{% endblock %}
+
+{% block content %}
+{{"8.4914583 76.9612215"}}
+<form method="POST" action="/api/submit/set_latlon">
+  <label for="address">Select an address:</label>
+  <select name="address" id="address" onchange="handleChange()">
+    {% for option in pub_addr_array %}
+    <option value="{{ option }}">{{ option }}</option>
+    {% endfor %}
+  </select>
+  <br><br>
+
+<label for="status">Select a status:</label>
+  <select name="status" id="status">
+    {% for status in statuses %}
+    <option value="{{ status }}">{{ status }}</option>
+    {% endfor %}
+  </select>
+  <br><br>
+  <label for="lat">appID:</label>
+  <input type="text"  value="" name="appid" id="appid">
+  <br><br>
+  <label for="lat">Lat:</label>
+  <input type="text"  value="" name="lat" id="lat">
+  <br><br>
+  <label for="lon">Lon:</label>
+  <input type="text" value="" name="lon" id="lon">
+  <br><br>
+
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+
+  function handleChange() {
+    var selectedOption = $('#address').val();
+
+    $.ajax({
+      type: 'POST',
+      url: '/option-change',
+      data: { selectedOption: selectedOption },
+      success: function(response) {
+        // Update the textbox value with the response
+        $('#status').val(response.status);
+        $('#lat').val(response.lat);
+        $('#lon').val(response.lon);
+
+      },
+      error: function(error) {
+        // Handle errors, if any
+        console.error(error);
+      }
+    });
+  }
+</script>
+
+{% endblock %}
