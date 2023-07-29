@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "868911490969",
+    "project_id": "pdd-dapp",
+    "storage_bucket": "pdd-dapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:868911490969:android:0b79633bcd510169cb5508",
+        "android_client_info": {
+          "package_name": "com.example.pdd_flutter_dapp05"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "868911490969-ks685cd7a70lfaaen2diirpq4smseedi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLZ6jxt0q-alLs7I-zNLHzhnl8k902gYs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "868911490969-ks685cd7a70lfaaen2diirpq4smseedi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
