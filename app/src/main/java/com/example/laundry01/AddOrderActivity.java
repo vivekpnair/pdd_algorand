@@ -192,9 +192,9 @@ public class AddOrderActivity extends MenuForAllActivity { // thid
         // save the order this will be added to the in memory JSON test data in JsomTestData object
         // ....in real world ...this will be serevr side REST API post call which will persist the data to a db
         // for our demo purpose we will save it to our test data object
-        //createOrderObj(String username, String inst, ArrayList<OrderItem> itemsList)
+        //createOrder(String username, String inst, ArrayList<OrderItem> itemsList)
 
-        JsonObject ret = mRestAPI.createOrderObj(mLoggedOnUser.getUser().get("user_info").getAsJsonObject().get("name").getAsString(),
+        JsonObject ret = mRestAPI.createOrder(mLoggedOnUser.getUser().get("user_info").getAsJsonObject().get("name").getAsString(),
                                          mLoggedOnUser.getUser().get("user_info").getAsJsonObject().get("inst").getAsString(),
                                          mClothItems,Integer.parseInt(mTotalCostTV.getText().toString()));
 

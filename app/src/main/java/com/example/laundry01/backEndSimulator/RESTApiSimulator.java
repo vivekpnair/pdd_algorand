@@ -147,7 +147,7 @@ public class RESTApiSimulator {
     }
 
 
-    public JsonObject createOrderObj(String username, String inst, ArrayList<HashMap<String, String>> itemsList, int totalCost)
+    public JsonObject createOrder(String username, String inst, ArrayList<HashMap<String, String>> itemsList, int totalCost)
     {
         JsonObject retOrder = new JsonObject();
         try {
