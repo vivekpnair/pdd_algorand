@@ -296,7 +296,7 @@ class _RoutePageState extends State<RoutePage> {
     GoogleMapController mapController = await _googleMapController.future;
     myLog("moveToPosition ${latLng.latitude} : ${latLng.longitude}");
     mapController.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: latLng, zoom: 15)));
+        CameraPosition(target: latLng, zoom: 19)));
   }
 
   @override
@@ -324,7 +324,7 @@ class _RoutePageState extends State<RoutePage> {
         GoogleMap(
           initialCameraPosition: CameraPosition(
             target: LatLng(_currLoc.latitude!, _currLoc.longitude!),
-            zoom: 18.0,
+            zoom: 19.0,
           ),
           mapType: MapType.normal,
           onMapCreated: (GoogleMapController controller) {

@@ -32,7 +32,6 @@ def set_latlon():
         try:
             mission_rec = Mission(address, appid, status, datetime.now())
             dbsession.add(mission_rec)
-            dbsession.commit()
             res = alogd_sc_calls.set_latlon_in_chain(status, address, lat, lon, appid, mnemonic)
             if res is not None:
                 dbsession.commit()

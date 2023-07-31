@@ -22,15 +22,23 @@ class _LoginScreenState extends State<LoginScreen> {
       headers: {'Content-Type': 'application/json'},
     );
 
-    // Handle the response
+// Handle the response
     if (response.statusCode == 200) {
       myLog(response.body.toString());
-      setState(() {
-        missionDetails = response.body.toString();
-      });
-      // Navigate to another widget passing the result as a parameter
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage(missionDetails: missionDetails)));
-
+      Map latlonDetMap = jsonDecode(response.body);
+      if(latlonDetMap.isNotEmpty){
+        if (latlonDetMap['ret_code'] == 200){
+          setState(() {
+            missionDetails = response.body.toString();
+          });
+          // Navigate to another widget passing the result as a parameter
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage(missionDetails: missionDetails)));
+        } else{
+          setState(() {
+            missionDetails = 'Error: ${latlonDetMap['ret_code']}';
+          });
+        }
+      }
     } else {
       setState(() {
         missionDetails = 'Error: ${response.statusCode}';

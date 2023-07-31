@@ -1,7 +1,6 @@
 import beaker as bk
 import pyteal as pt
-from beaker import Authorize
-from pyteal import Bytes, Concat, Global, Assert
+from pyteal import Bytes, Concat, Assert
 
 
 class LatLonState:

@@ -1,7 +1,7 @@
 import json
 
-from sqlalchemy import ForeignKey, Column, String, Integer, DateTime
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import ForeignKey, Column, String, Integer, DateTime, create_engine
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 

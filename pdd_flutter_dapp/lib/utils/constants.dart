@@ -1,5 +1,3 @@
-
-
 const String APP_NAME = "PDD Mission Tracker ";
 const String RETRIEVE_MISSION_DATA_BTN = "Retrieve Mission Data";
 const String START_MISSION_BTN = "Start Mission !";
@@ -15,7 +13,7 @@ void myLog(String str) {
 }
 
 
-/*
+/* testing code for setting lat/lon
 void main() {
   int appID = 259780580;
   //", "app_id": 257383442

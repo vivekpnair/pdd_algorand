@@ -2,12 +2,12 @@ import datetime
 import json
 
 from sqlalchemy import create_engine, ForeignKey, Column, String, Integer, DateTime
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+#from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, declarative_base
 
-from webapp.db_model.MissionDBModel import AdminUser, User
+from webapp.db_model.MissionDBModel import Base, AdminUser, User
 
-Base = declarative_base()
+#Base = declarative_base()
 
 if __name__ == '__main__':
     engine = create_engine("sqlite:///../webapp/db_model/mission_data.db", echo=True) # path to db file
@@ -21,9 +21,9 @@ if __name__ == '__main__':
     session.add(admin_user)
 
     # # # #
-    # mneumonic = "symptom exhibit click fatigue salmon rhythm poverty fame vehicle recall cherry month basic extend flush own dune pepper winter flame inside flock sadness absorb suggest"
-    # user = User("NRVHLO4K5RCOXUHAQQFVKO6HUBDHTNMXGEYRTTW7O6FHCKDK4RUJL63JVU", mneumonic, "12345", "vivek prem nair", "vivekpremnair@gmail.com", "9901877428")
-    # session.add(user)
+    #mneumonic = "symptom exhibit click fatigue salmon rhythm poverty fame vehicle recall cherry month basic extend flush own dune pepper winter flame inside flock sadness absorb suggest"
+    #user = User("NRVHLO4K5RCOXUHAQQFVKO6HUBDHTNMXGEYRTTW7O6FHCKDK4RUJL63JVU", mneumonic, "12345", "vivek prem nair", "vivekpremnair@gmail.com", "9901877428")
+    #session.add(user)
     # # # # # #
     # # now = datetime.datetime.now()
     # # # #

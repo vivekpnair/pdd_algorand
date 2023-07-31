@@ -1,0 +1,12 @@
+.idea/
+build/
+.gradle/
+.dart_tool/
+*.pyc
+artifacts/
+contract.json
+.flutter-plugins
+.flutter-plugins-dependencies
+*.lock
+mission_data.db
+pdd_smartcontract/.idea/misc.xml
