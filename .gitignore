@@ -10,3 +10,5 @@ contract.json
 *.lock
 mission_data.db
 pdd_smartcontract/.idea/misc.xml
+pdd_flutter_dapp/android/local.properties
+pdd_flutter_dapp/android/gradlew
