@@ -34,48 +34,6 @@ class GetMissionData extends StatelessWidget {
   final String missionDetails;
   const GetMissionData({super.key, required this.missionDetails});
 
-
-  Future<String> getLatLonFromChain() async {
-    final options = AlgorandOptions(
-      algodClient: AlgodClient(
-        apiUrl: "https://testnet-api.algonode.cloud/",
-      ),
-      indexerClient: IndexerClient(
-        apiUrl: "https://testnet-idx.algonode.cloud",
-      ),
-    );
-
-    myLog(missionDetails);
-    Map<String, dynamic> missionDetailsJson = jsonDecode(missionDetails);
-
-    final algorand = Algorand(options: options);
-    final params = await algorand.getSuggestedTransactionParams();
-    final account = await getAccount(missionDetailsJson['mnemonic'].toString());
-    final int appId = int.parse(missionDetailsJson['app_id'].toString());
-    final atc = AtomicTransactionComposer();
-    await atc.addMethodCall(MethodCallParams(
-      applicationId: appId,
-      sender: account.address,
-      method: getLatLonMethodObj(),
-      params: params,
-      signer: account,
-      methodArgs: [account.publicAddress],
-    ));
-
-    // Run the transaction and wait for the results
-    final result = await atc.execute(algorand, waitRounds: 4);
-
-    // Print out the results
-    final resStr = result.methodResults[0].value.toString();
-    Map<String, dynamic> resStrJson = jsonDecode(resStr);
-    // add app id as well to use in route map page
-    resStrJson["appid"] = appId.toString();
-    resStrJson["mnemonic"] = missionDetailsJson['mnemonic'].toString();
-
-    return jsonEncode(resStrJson);
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -129,10 +87,9 @@ class GetMissionData extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           },
-
           // Future that needs to be resolved
           // inorder to display something on the Canvas
-          future: getLatLonFromChain(),
+          future: getMissionDataFromChain(missionDetails),
         ),
       ),
     );

@@ -12,6 +12,8 @@ import 'package:pdd_flutter_dapp05/utils/constants.dart';
 import 'package:pdd_flutter_dapp05/utils/helper.dart';
 import 'package:pdd_flutter_dapp05/widgets/circ_progress_widget.dart';
 
+import 'utils/globals.dart' as globals;
+
 class RoutePage extends StatefulWidget {
   final String missionDetails;
 
@@ -143,6 +145,7 @@ class _RoutePageState extends State<RoutePage> {
   Future<void> getDataForWidget() async {
     if (!_missionOver) {
       _currLoc = await location.getLocation();
+      reportMissionStartAsync("started");
       // save this as the start loc to draw the polyline
       _startLoc = _currLoc;
       _setupLocationTracker();
@@ -172,7 +175,6 @@ class _RoutePageState extends State<RoutePage> {
     _mnemonic = missionDetailsMap['mnemonic'].toString();
     myLog("initState _appID: " + _appID.toString());
     _future = getDataForWidget();
-    reportStatusUpdateAsync("inprogress");
   }
 
   void _setupLocationTracker() {
@@ -187,10 +189,10 @@ class _RoutePageState extends State<RoutePage> {
         myLog("dist moved: $distMoved");
         if (distMoved >= LOC_REPORT_DIST_M) {
           // we have moved enuf...so report this new loc to CC
+          _currLoc = newLocation;
           myLog("loc diff is $distMoved. Reporting new loc to CC");
           reportLocationUpdate("inprogress");
         }
-        _currLoc = newLocation;
         // first move to the loc and then do some checks on path etc
         moveToPosition(LatLng(_currLoc.latitude ?? 0, _currLoc.longitude ?? 0));
         // check whether this new location falls comfortably within the polyline drawn
@@ -250,7 +252,7 @@ class _RoutePageState extends State<RoutePage> {
       String latlonStr = "${_currLoc.latitude!},${_currLoc.longitude!}";
       myLog("reporting curr loc to CC appID: $_appID latlonStr: $latlonStr");
       final response = http.post(
-        Uri.parse(CC_REST_API_URL + '/api/update_loc'),
+        Uri.parse(globals.ccBaseUrl + '/api/update_loc'),
         body: jsonEncode(
             {'appid': _appID, 'latlon': latlonStr, 'mission_status': status}),
         headers: {'Content-Type': 'application/json'},
@@ -260,18 +262,25 @@ class _RoutePageState extends State<RoutePage> {
 
   void reportStatusUpdate(String status) {
     final response = http.post(
-      Uri.parse(CC_REST_API_URL + '/api/update_status'),
+      Uri.parse(globals.ccBaseUrl + '/api/update_status'),
       body: jsonEncode({'appid': _appID, 'status': status}),
       headers: {'Content-Type': 'application/json'},
     );
   }
 
-  Future<void> reportStatusUpdateAsync(String status) async {
-    await http.post(
-      Uri.parse(CC_REST_API_URL + '/api/update_status'),
-      body: jsonEncode({'appid': _appID, 'status': status}),
-      headers: {'Content-Type': 'application/json'},
-    );
+  Future<void> reportMissionStartAsync(String status) async {
+    myLog("reportMissionStartAsync to CC appID: ");
+
+    if (_currLoc != null) {
+      String latlonStr = "${_currLoc.latitude!},${_currLoc.longitude!}";
+      myLog("reportMissionStartAsync to CC appID: $_appID latlonStr: $latlonStr");
+      final response = await http.post(
+        Uri.parse(globals.ccBaseUrl + '/api/update_loc'),
+        body: jsonEncode(
+            {'appid': _appID, 'latlon': latlonStr, 'mission_status': status}),
+        headers: {'Content-Type': 'application/json'},
+      );
+    }
   }
 
   void reportFinalMissionData(String status) {

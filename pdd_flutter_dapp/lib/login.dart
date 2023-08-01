@@ -4,6 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:pdd_flutter_dapp05/home_page.dart';
 import 'package:pdd_flutter_dapp05/utils/constants.dart';
 
+import 'utils/globals.dart' as globals;
+
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -16,8 +19,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> login() async {
     // Make the REST API call
+
+    myLog("ccBaseUrl="+globals.ccBaseUrl);
     final response = await http.post(
-      Uri.parse(CC_REST_API_URL + '/api/get_miss_det'),
+      Uri.parse(globals.ccBaseUrl + '/api/get_miss_det'),
       body: jsonEncode({'email': username, 'access_code': password}),
       headers: {'Content-Type': 'application/json'},
     );
@@ -55,6 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            TextField(
+              controller: TextEditingController(text: globals.ccBaseUrl),
+              onChanged: (value) => globals.ccBaseUrl = value,
+              decoration: const InputDecoration(labelText: 'CC server Base URL'),
+            ),
             TextField(
               onChanged: (value) => setState(() => username = value),
               decoration: const InputDecoration(labelText: 'E-mail'),

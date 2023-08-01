@@ -8,19 +8,47 @@ Mission Details
 <body>
  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-
     <div id="map-container">
         <div id="map"></div>
-    </div>
+    </div><br>
+<div>Icons made by <a href="https://www.flaticon.com/authors/iconmarketpk" title="IconMarketPK">IconMarketPK</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 
     <script>
-
+        var path = '/static/icons/'
         var data =  {{ mission_data | safe }};
         if (data.length > 0) {
-        var map = L.map('map').setView([0, 0], 2);
+        var map = L.map('map').setView([0, 0], 3);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
         console.log(data[0].latlon);
+
+        var startIcon = L.icon({
+          iconUrl: path + 'start.png',  // Replace with the path to your red marker icon image
+          iconSize: [32, 32],                      // Set the size of the icon image
+          iconAnchor: [16, 32],                    // Set the anchor point of the icon (tip of the marker)
+          popupAnchor: [0, -32]                    // Set the anchor point for popups relative to the icon
+        });
+
+         var successIcon = L.icon({
+          iconUrl: path + 'success.png',  // Replace with the path to your red marker icon image
+          iconSize: [32, 32],                      // Set the size of the icon image
+          iconAnchor: [16, 32],                    // Set the anchor point of the icon (tip of the marker)
+          popupAnchor: [0, -32]                    // Set the anchor point for popups relative to the icon
+        });
+
+        var failedIcon = L.icon({
+          iconUrl: path + 'failed.png',  // Replace with the path to your red marker icon image
+          iconSize: [32, 32],                      // Set the size of the icon image
+          iconAnchor: [16, 32],                    // Set the anchor point of the icon (tip of the marker)
+          popupAnchor: [0, -32]                    // Set the anchor point for popups relative to the icon
+        });
+
+          var inprogIcon = L.icon({
+          iconUrl: path + 'inprog.png',  // Replace with the path to your red marker icon image
+          iconSize: [32, 32],                      // Set the size of the icon image
+          iconAnchor: [16, 32],                    // Set the anchor point of the icon (tip of the marker)
+          popupAnchor: [0, -32]                    // Set the anchor point for popups relative to the icon
+        });
 
         var polylinePoints = [];
         for (var i = 0; i < data.length; i++) {
@@ -30,8 +58,26 @@ Mission Details
             polylinePoints.push(latlng);
 
               // Add a marker for each point in polylinePoints
-            var marker = L.marker(latlng).addTo(map);
-            marker.bindPopup('reached here @ : ' + data[i].loc_timestamp); // You can customize the popup content here
+            var iconToShow = startIcon;
+            console.log(data[i].mission_status);
+
+            switch (data[i].mission_status) {
+                case "inprogress":
+                    iconToShow =  inprogIcon;
+                    break;
+                case "success":
+                    iconToShow = successIcon;
+                    break;
+                case "failed":
+                    iconToShow =  failedIcon;
+                    break;
+                case "created":
+                    iconToShow =  startIcon;
+                    break;
+             }
+            if(data[i].mission_status)
+            var marker = L.marker(latlng, { icon: iconToShow }).addTo(map);
+            marker.bindPopup('status : ' +data[i].mission_status + ' @ : ' + data[i].loc_timestamp); // You can customize the popup content here
         }
 
         var polyline = L.polyline(polylinePoints, {color: 'blue'}).addTo(map);
