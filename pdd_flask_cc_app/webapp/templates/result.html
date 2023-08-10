@@ -6,4 +6,7 @@
 
 {% block content %}
 {{ret}}
+{% if "Successfully added user" in ret %}
+      <br><br><a href="https://dispenser.testnet.aws.algodev.network/">Algorand Testnet Dispenser</a>
+{% endif %}
 {% endblock %}

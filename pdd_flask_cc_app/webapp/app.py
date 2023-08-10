@@ -39,7 +39,7 @@ app.add_url_rule('/cc/listappids', view_func=cc_app_display_pages.disp_appids_pa
 app.add_url_rule('/cc/listappids/mission_details/', view_func=cc_app_display_pages.disp_appdetails_page)
 
 # Display the add user form to add users to CC app
-app.add_url_rule('/cc/add_user_form', view_func=cc_app_display_pages.add_user_form)
+app.add_url_rule('/cc/add_user_form', view_func=cc_app_display_pages.add_user, methods=['POST', 'GET'])
 ########################################################################
 
 ########################################################################

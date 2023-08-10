@@ -7,12 +7,12 @@ Add User
 {% block content %}
 <body>
     <h1>Add New User (Not yet implemented)</h1>
-    <form method="POST" action="/add_user">
+    <form method="POST">
         <label for="pub_addr">Public Address:</label>
-        <input type="text" name="pub_addr" required><br>
+        <input type="text" name="pub_addr" value="{{pub_key}}" required readonly ><br>
 
         <label for="mnemonic">Mnemonic:</label>
-        <input type="text" name="mnemonic" required><br>
+        <input type="text" name="mnemonic" value="{{mnemonic}}" required readonly ><br>
 
         <label for="access_code">Access Code:</label>
         <input type="password" name="access_code" required><br>

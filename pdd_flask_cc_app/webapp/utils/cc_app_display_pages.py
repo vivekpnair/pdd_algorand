@@ -1,6 +1,9 @@
 # cc_app_display_pages.py. These calls will be used by command center flask web app and mission tracker android app
+import datetime
 import json
 
+from algosdk import account
+from algosdk import mnemonic
 from flask import render_template, request, session, redirect
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -120,9 +123,36 @@ def disp_appdetails_page():
     else:
         return render_template("login.html")
 
-# TODO add_user_form functionality is not yet implemented. Just dislays the form
-def add_user_form():
-    return render_template('add_user.html')
+
+# this function will handle both adduser form display and submit
+def add_user():
+    if "username" in session:
+        try:
+            if request.method == "GET":
+                private_key, pub_key = account.generate_account()
+                mnemonic_var = mnemonic.from_private_key(private_key)
+                return render_template('add_user.html', pub_key=pub_key, mnemonic=mnemonic_var)
+            elif request.method == "POST":
+                dbsession = Session()
+                pub_key = request.form["pub_addr"]
+                mnemonic_var = request.form["mnemonic"]
+                access_code = request.form["access_code"]
+                full_name = request.form["fullname"]
+                email = request.form["email"]
+                mobile = request.form["mobile"]
+                user = User(pub_key, mnemonic_var, access_code, full_name, email, mobile)
+                dbsession.add(user)
+                dbsession.commit()
+                res = "Successfully added user!. Dispense your account (using pub key) by clicking the link below "
+        except Exception as e:
+            print(e)
+            if request.method == "POST":
+                dbsession.rollback()  # all or nothing
+            res = "Failed : " + str(e)
+        finally:
+            if request.method == "POST":
+                dbsession.close()
+                return render_template('result.html', ret=res)
 
 
 def home():
