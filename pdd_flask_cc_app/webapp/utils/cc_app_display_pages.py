@@ -143,7 +143,7 @@ def add_user():
                 user = User(pub_key, mnemonic_var, access_code, full_name, email, mobile)
                 dbsession.add(user)
                 dbsession.commit()
-                res = "Successfully added user!. Dispense your account (using pub key) by clicking the link below "
+                res = "Successfully added user!. Dispense your account (using pub key " + pub_key + " ) by clicking the link below "
         except Exception as e:
             print(e)
             if request.method == "POST":
